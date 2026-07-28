@@ -1,0 +1,30 @@
+# --- Gradle ---
+.gradle/
+build/
+
+# --- Minecraft dev runtime ---
+# The run/ dir holds game files, downloaded MC assets, natives, third-party mod
+# jars (WAILA/NEI/CodeChicken...), saves and logs. None of it belongs in the repo
+# (it's regenerated, and much of it is copyrighted / not ours to redistribute).
+run/
+
+# --- IDE: IntelliJ ---
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# --- IDE: Eclipse ---
+.settings/
+.classpath
+.project
+bin/
+*.launch
+
+# --- IDE: VS Code ---
+.vscode/
+
+# --- OS ---
+*.DS_Store
+Thumbs.db

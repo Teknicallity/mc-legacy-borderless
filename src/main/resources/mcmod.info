@@ -1,0 +1,16 @@
+[
+{
+  "modid": "LegacyBorderlessWindow",
+  "name": "Legacy Borderless Window",
+  "description": "A backport of Borderless Window for legacy forge versions.",
+  "version": "1.0",
+  "mcversion": "1.6.4",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["Teknicallity"],
+  "credits": "Borderless Window by the og authors.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
