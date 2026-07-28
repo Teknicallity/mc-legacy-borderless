@@ -26,3 +26,34 @@ dependencies {
 volde {
 	//more configuration goes here...
 }
+
+// This mod ships an FML core-mod (an ASM class transformer that redirects Minecraft's exclusive-fullscreen
+// calls to the borderless engine). FML discovers a core-mod from the jar manifest in production, and from the
+// `fml.coreMods.load` system property in a dev workspace.
+
+String coreModClass = "com.teknicallity.legacyborderless.coremod.LegacyBorderlessCorePlugin"
+
+jar {
+	manifest {
+		attributes(
+			"FMLCorePlugin": coreModClass,
+			// Also load the @Mod (key binding + tick handler) from this same core-mod jar.
+			"FMLCorePluginContainsFMLMod": "true"
+		)
+	}
+}
+
+// Load the core-mod when launching the game from Gradle/the IDE (`runClient`).
+afterEvaluate {
+	tasks.matching { it.name == "runClient" }.configureEach {
+		jvmArgs "-Dfml.coreMods.load=${coreModClass}"
+		// Opt-in debug: `./gradlew runClient -PlbDebug` auto-cycles borderless and dumps diagnostics.
+		if (project.hasProperty("lbDebug")) {
+			jvmArgs "-Dlegacyborderless.debugAutoCycle=true"
+		}
+		// Experiment with the anti-fullscreen-optimization overscan: `./gradlew runClient -PlbOverscan=2`.
+		if (project.hasProperty("lbOverscan")) {
+			jvmArgs "-Dlegacyborderless.overscan=${project.property('lbOverscan')}"
+		}
+	}
+}
