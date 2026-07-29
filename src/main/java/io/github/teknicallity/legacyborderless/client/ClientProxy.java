@@ -1,7 +1,7 @@
-package com.teknicallity.legacyborderless.client;
+package io.github.teknicallity.legacyborderless.client;
 
-import com.teknicallity.legacyborderless.CommonProxy;
-import com.teknicallity.legacyborderless.engine.BorderlessEngine;
+import io.github.teknicallity.legacyborderless.CommonProxy;
+import io.github.teknicallity.legacyborderless.engine.BorderlessEngine;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.TickRegistry;
@@ -11,7 +11,7 @@ import org.lwjgl.input.Keyboard;
 
 /**
  * Client-side wiring: registers the rebindable "toggle borderless" key and the per-tick handler that drives
- * {@link com.teknicallity.legacyborderless.engine.BorderlessEngine}.
+ * {@link io.github.teknicallity.legacyborderless.engine.BorderlessEngine}.
  */
 public class ClientProxy extends CommonProxy {
 

@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless.coremod;
+package io.github.teknicallity.legacyborderless.coremod;
 
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
@@ -46,7 +46,7 @@ public class FullscreenRedirectTransformer implements IClassTransformer {
     private static final String SET_VSYNC = "setVSyncEnabled";
     private static final String SET_VSYNC_DESC = "(Z)V";
 
-    private static final String HOOK_OWNER = "com/teknicallity/legacyborderless/engine/BorderlessEngine";
+    private static final String HOOK_OWNER = "io/github/teknicallity/legacyborderless/engine/BorderlessEngine";
     private static final String HOOK_NAME = "setFullscreenFromGame";
 
     private static final String KEYBOARD_OWNER = "org/lwjgl/input/Keyboard";

@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless.coremod;
+package io.github.teknicallity.legacyborderless.coremod;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
@@ -14,8 +14,8 @@ import java.util.Map;
  */
 @IFMLLoadingPlugin.MCVersion("1.6.4")
 @IFMLLoadingPlugin.TransformerExclusions({
-        "com.teknicallity.legacyborderless.coremod",
-        "com.teknicallity.legacyborderless.engine"
+        "io.github.teknicallity.legacyborderless.coremod",
+        "io.github.teknicallity.legacyborderless.engine"
 })
 @IFMLLoadingPlugin.SortingIndex(1001)
 public class LegacyBorderlessCorePlugin implements IFMLLoadingPlugin {
@@ -28,7 +28,7 @@ public class LegacyBorderlessCorePlugin implements IFMLLoadingPlugin {
     @Override
     public String[] getASMTransformerClass() {
         return new String[]{
-                "com.teknicallity.legacyborderless.coremod.FullscreenRedirectTransformer"
+                "io.github.teknicallity.legacyborderless.coremod.FullscreenRedirectTransformer"
         };
     }
 

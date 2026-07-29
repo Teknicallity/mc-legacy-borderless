@@ -1,6 +1,6 @@
-package com.teknicallity.legacyborderless.client;
+package io.github.teknicallity.legacyborderless.client;
 
-import com.teknicallity.legacyborderless.engine.BorderlessEngine;
+import io.github.teknicallity.legacyborderless.engine.BorderlessEngine;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 

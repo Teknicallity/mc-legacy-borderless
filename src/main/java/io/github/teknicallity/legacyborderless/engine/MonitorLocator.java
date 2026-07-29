@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless.engine;
+package io.github.teknicallity.legacyborderless.engine;
 
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;

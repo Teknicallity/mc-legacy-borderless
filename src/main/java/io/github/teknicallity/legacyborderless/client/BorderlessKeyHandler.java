@@ -1,7 +1,7 @@
-package com.teknicallity.legacyborderless.client;
+package io.github.teknicallity.legacyborderless.client;
 
-import com.teknicallity.legacyborderless.engine.BorderlessEngine;
-import com.teknicallity.legacyborderless.engine.Log;
+import io.github.teknicallity.legacyborderless.engine.BorderlessEngine;
+import io.github.teknicallity.legacyborderless.engine.Log;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.TickType;
 import net.minecraft.client.settings.KeyBinding;

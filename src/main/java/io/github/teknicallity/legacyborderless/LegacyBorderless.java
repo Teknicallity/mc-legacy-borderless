@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless;
+package io.github.teknicallity.legacyborderless;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -11,14 +11,15 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
  * <p>
  * All client-only wiring lives behind a {@link SidedProxy} so the mod is safe to load on a dedicated server.
  */
-@Mod(modid = LegacyBorderlessWindow.MODID, name = "Legacy Borderless Window", version = "1.0")
-public class LegacyBorderlessWindow {
+// name/version/description come from mcmod.info (see useMetadata); modid stays here as the mod's key.
+@Mod(modid = LegacyBorderless.MODID, useMetadata = true)
+public class LegacyBorderless {
 
-    public static final String MODID = "LegacyBorderlessWindow";
+    public static final String MODID = "legacyborderless";
 
     @SidedProxy(
-            clientSide = "com.teknicallity.legacyborderless.client.ClientProxy",
-            serverSide = "com.teknicallity.legacyborderless.CommonProxy"
+            clientSide = "io.github.teknicallity.legacyborderless.client.ClientProxy",
+            serverSide = "io.github.teknicallity.legacyborderless.CommonProxy"
     )
     public static CommonProxy proxy;
 

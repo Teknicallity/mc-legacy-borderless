@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless;
+package io.github.teknicallity.legacyborderless;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 

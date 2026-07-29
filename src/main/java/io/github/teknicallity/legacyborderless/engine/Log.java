@@ -1,4 +1,4 @@
-package com.teknicallity.legacyborderless.engine;
+package io.github.teknicallity.legacyborderless.engine;
 
 /**
  * Tiny dependency-free logger.
