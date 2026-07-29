@@ -1,7 +1,9 @@
 package com.teknicallity.legacyborderless.client;
 
 import com.teknicallity.legacyborderless.CommonProxy;
+import com.teknicallity.legacyborderless.engine.BorderlessEngine;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,6 +14,12 @@ import org.lwjgl.input.Keyboard;
  * {@link com.teknicallity.legacyborderless.engine.BorderlessEngine}.
  */
 public class ClientProxy extends CommonProxy {
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        // Remember the borderless state across launches, and restore it once the window exists.
+        BorderlessEngine.initPersistence(event.getSuggestedConfigurationFile());
+    }
 
     @Override
     public void init() {

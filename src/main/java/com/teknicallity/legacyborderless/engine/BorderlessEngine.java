@@ -3,6 +3,12 @@ package com.teknicallity.legacyborderless.engine;
 import org.lwjgl.opengl.Display;
 
 import java.awt.Rectangle;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
 
 /**
  * Central borderless state machine. Has no Minecraft/Forge dependencies on purpose: it is loaded very early
@@ -14,6 +20,9 @@ public final class BorderlessEngine {
     /** Debug: set {@code -Dlegacyborderless.debugAutoCycle=true} to auto-toggle borderless on/off during a run. */
     private static final boolean DEBUG_AUTO_CYCLE = Boolean.getBoolean("legacyborderless.debugAutoCycle");
 
+    /** Debug: set {@code -Dlegacyborderless.debug=true} (or the auto-cycle flag) to dump startup diagnostics. */
+    private static final boolean DEBUG = DEBUG_AUTO_CYCLE || Boolean.getBoolean("legacyborderless.debug");
+
     /**
      * Extra pixels added to the covered area so the window does NOT exactly match the monitor. Windows 10/11
      * otherwise promotes an exactly-monitor-sized borderless window to fullscreen-optimization / DWM independent
@@ -24,6 +33,9 @@ public final class BorderlessEngine {
 
     private static boolean borderless;
     private static boolean pendingApply;
+
+    /** Where the borderless on/off state is persisted between launches (set by the client proxy at pre-init). */
+    private static File configFile;
 
     private static int savedX = 100;
     private static int savedY = 100;
@@ -39,6 +51,68 @@ public final class BorderlessEngine {
 
     public static synchronized boolean isBorderless() {
         return borderless;
+    }
+
+    /**
+     * Wires up state persistence and schedules restoration of the last-used borderless state. Called once by the
+     * client proxy at pre-init with the mod's config file. If the saved state was borderless, it is applied on the
+     * first client tick (once the window exists).
+     */
+    public static synchronized void initPersistence(File file) {
+        configFile = file;
+        boolean saved = readSaved();
+        pendingApply = saved;
+        Log.info("Persistence: configFile=" + file + " savedBorderless=" + saved
+                + " (will " + (saved ? "restore" : "stay windowed") + " on start).");
+    }
+
+    private static boolean readSaved() {
+        if (configFile == null || !configFile.isFile()) {
+            return false;
+        }
+        InputStream in = null;
+        try {
+            in = new FileInputStream(configFile);
+            Properties props = new Properties();
+            props.load(in);
+            return Boolean.parseBoolean(props.getProperty("borderless", "false"));
+        } catch (Throwable t) {
+            Log.warn("Could not read borderless state from " + configFile, t);
+            return false;
+        } finally {
+            closeQuietly(in);
+        }
+    }
+
+    private static void save() {
+        if (configFile == null) {
+            return;
+        }
+        OutputStream out = null;
+        try {
+            File dir = configFile.getParentFile();
+            if (dir != null && !dir.exists()) {
+                dir.mkdirs();
+            }
+            Properties props = new Properties();
+            props.setProperty("borderless", Boolean.toString(borderless));
+            out = new FileOutputStream(configFile);
+            props.store(out, "Legacy Borderless Window - remembers whether the window was borderless");
+        } catch (Throwable t) {
+            Log.warn("Could not write borderless state to " + configFile, t);
+        } finally {
+            closeQuietly(out);
+        }
+    }
+
+    private static void closeQuietly(java.io.Closeable c) {
+        if (c != null) {
+            try {
+                c.close();
+            } catch (Throwable ignored) {
+                // no-op
+            }
+        }
     }
 
     /** Invoked by the bytecode the coremod injects in place of {@code Display.setFullscreen(boolean)}. */
@@ -84,7 +158,7 @@ public final class BorderlessEngine {
             }
             tickCount++;
 
-            if (!diagnosticsDumped) {
+            if (DEBUG && !diagnosticsDumped) {
                 diagnosticsDumped = true;
                 dumpDiagnostics();
             }
@@ -176,6 +250,7 @@ public final class BorderlessEngine {
                 + " -> covering " + width + "x" + height + " (overscan=" + OVERSCAN + ")");
         Lwjgl2Window.makeBorderless(monitor.x, monitor.y, width, height);
         borderless = true;
+        save();
     }
 
     private static void disable() {
@@ -185,5 +260,6 @@ public final class BorderlessEngine {
         Log.info("disable(): restoring " + savedX + "," + savedY + " " + savedW + "x" + savedH);
         Lwjgl2Window.makeWindowed(savedX, savedY, savedW, savedH);
         borderless = false;
+        save();
     }
 }

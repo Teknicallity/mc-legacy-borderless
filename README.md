@@ -33,6 +33,9 @@ An FML core-mod ([`FullscreenRedirectTransformer`](src/main/java/com/teknicallit
 | **Video Settings → Fullscreen** toggle | `toggleFullscreen()` is neutered (its body replaced with `return`), so this option does nothing — its display-mode dance fought the borderless engine and is unnecessary. Use the key binding instead. |
 | **Launch-in-fullscreen** | The `Display.setFullscreen(boolean)` call in `startGame()` is rewritten to route through the borderless engine, so starting with `fullscreen:true` comes up borderless rather than exclusive. |
 
+The borderless on/off state is remembered between launches in `config/LegacyBorderlessWindow.cfg` and restored on
+the first client tick, so the game comes back up borderless if you left it borderless.
+
 Only Windows is supported (that's where the LWJGL 2 native helpers live); on other platforms the mod no-ops and the
 window is left alone.
 

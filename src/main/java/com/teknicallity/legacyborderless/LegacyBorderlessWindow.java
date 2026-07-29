@@ -3,6 +3,7 @@ package com.teknicallity.legacyborderless;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Mod entry point. The borderless engine works with no mod at all (the coremod injects into Minecraft directly),
@@ -20,6 +21,11 @@ public class LegacyBorderlessWindow {
             serverSide = "com.teknicallity.legacyborderless.CommonProxy"
     )
     public static CommonProxy proxy;
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        proxy.preInit(event);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
