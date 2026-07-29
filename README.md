@@ -25,7 +25,7 @@ the **existing** window in place using LWJGL 2's own Win32 bindings, reached by 
 Minecraft picks up the new size through its normal `Display.wasResized()` → `resize()` path, and LWJGL input keeps
 working. The monitor is chosen from the window's centre point via AWT, so it targets the display the game is on.
 
-An FML core-mod ([`FullscreenRedirectTransformer`](src/main/java/com/teknicallity/legacyborderless/coremod/FullscreenRedirectTransformer.java)) rewrites `Minecraft` on load so that:
+An FML core-mod ([`FullscreenRedirectTransformer`](src/main/java/io/github/teknicallity/legacyborderless/coremod/FullscreenRedirectTransformer.java)) rewrites `Minecraft` on load so that:
 
 | Trigger | Mechanism |
 | --- | --- |
@@ -33,7 +33,7 @@ An FML core-mod ([`FullscreenRedirectTransformer`](src/main/java/com/teknicallit
 | **Video Settings → Fullscreen** toggle | `toggleFullscreen()` is neutered (its body replaced with `return`), so this option does nothing — its display-mode dance fought the borderless engine and is unnecessary. Use the key binding instead. |
 | **Launch-in-fullscreen** | The `Display.setFullscreen(boolean)` call in `startGame()` is rewritten to route through the borderless engine, so starting with `fullscreen:true` comes up borderless rather than exclusive. |
 
-The borderless on/off state is remembered between launches in `config/LegacyBorderlessWindow.cfg` and restored on
+The borderless on/off state is remembered between launches in `config/legacyborderless.cfg` and restored on
 the first client tick, so the game comes back up borderless if you left it borderless.
 
 Only Windows is supported (that's where the LWJGL 2 native helpers live); on other platforms the mod no-ops and the
@@ -47,8 +47,8 @@ Requires the Java 11 toolchain already configured in [`gradle.properties`](gradl
 ./gradlew build
 ```
 
-The distributable jar is `build/libs/legacy-windowed-borderless.jar` (drop it in a real 1.6.4 Forge instance's
-`mods/` folder). The `-dev.jar` is the un-reobfuscated workspace jar — don't ship that one.
+The distributable jar is `build/libs/legacy-borderless-1.6.4-forge-1.0.jar` (drop it in a real 1.6.4 Forge
+instance's `mods/` folder). The `-dev.jar` is the un-reobfuscated workspace jar — don't ship that one.
 
 ## Testing in the dev workspace
 

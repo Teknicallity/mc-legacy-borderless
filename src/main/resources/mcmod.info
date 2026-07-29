@@ -1,10 +1,10 @@
 [
 {
-  "modid": "LegacyBorderlessWindow",
-  "name": "Legacy Borderless Window",
+  "modid": "legacyborderless",
+  "name": "Legacy Borderless",
   "description": "A backport of Borderless Window for legacy forge versions.",
-  "version": "1.0",
-  "mcversion": "1.6.4",
+  "version": "${modVersion}",
+  "mcversion": "${minecraftVersion}",
   "url": "",
   "updateUrl": "",
   "authorList": ["Teknicallity"],

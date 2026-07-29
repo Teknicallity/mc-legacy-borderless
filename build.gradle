@@ -16,11 +16,27 @@ compileJava.options.release.set(6) //Forge doesn't understand classes compiled t
 
 String minecraftVersion = "1.6.4"
 String forgeVersion = "1.6.4-9.11.1.1345"
+String modVersion = "1.0" //single source of truth — injected into mcmod.info; @Mod reads it back via useMetadata
+
+// Final jar name = [archiveBaseName]-[version].jar, i.e.
+//   legacy-borderless-1.6.4-forge-1.0.jar
+// archiveBaseName defaults to rootProject.name (set in settings.gradle); we only supply the version segment.
+version = "${minecraftVersion}-forge-${modVersion}"
 
 dependencies {
 	minecraft "com.mojang:minecraft:${minecraftVersion}"
 	forge "net.minecraftforge:forge:${forgeVersion}:universal" //no @zip — Forge maven only hosts the universal as a .jar now
 	mappings "net.minecraftforge:forge:${forgeVersion}:src@zip"
+}
+
+// Fill mcmod.info's ${...} placeholders from the Gradle vars above, so the version/mcversion
+// live in exactly one place. @Mod(useMetadata = true) then reads them back at runtime.
+processResources {
+	inputs.property "modVersion", modVersion
+	inputs.property "minecraftVersion", minecraftVersion
+	filesMatching("mcmod.info") {
+		expand("modVersion": modVersion, "minecraftVersion": minecraftVersion)
+	}
 }
 
 volde {
@@ -31,7 +47,7 @@ volde {
 // calls to the borderless engine). FML discovers a core-mod from the jar manifest in production, and from the
 // `fml.coreMods.load` system property in a dev workspace.
 
-String coreModClass = "com.teknicallity.legacyborderless.coremod.LegacyBorderlessCorePlugin"
+String coreModClass = "io.github.teknicallity.legacyborderless.coremod.LegacyBorderlessCorePlugin"
 
 jar {
 	manifest {
