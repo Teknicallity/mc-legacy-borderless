@@ -3,6 +3,12 @@
 A borderless-windowed-fullscreen mod for **Minecraft 1.6.4 (Forge)** — a backport in spirit of
 [Nekeras' Borderless Window](https://www.curseforge.com/minecraft/mc-mods/borderless).
 
+Legacy Borderless replaces 1.6.4's alt-tab-hostile exclusive fullscreen with a true borderless
+windowed fullscreen: a title-bar-less window sized to cover your monitor exactly. Alt-tabbing never
+blacks out or minimises the game, other windows can sit on top, and there's no title bar to burn in
+on OLED. Toggle it with a rebindable key (default **F11**), and it remembers whether you left the
+game borderless between launches. Windows only.
+
 ## Why
 
 1.6.4's only "fullscreen" is LWJGL 2's **exclusive** fullscreen (`Display.setFullscreen(true)`). It blacks out /

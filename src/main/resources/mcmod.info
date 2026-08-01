@@ -5,11 +5,11 @@
   "description": "A backport of Borderless Window for legacy forge versions.",
   "version": "${modVersion}",
   "mcversion": "${minecraftVersion}",
-  "url": "",
+  "url": "https://github.com/Teknicallity/mc-legacy-borderless",
   "updateUrl": "",
   "authorList": ["Teknicallity"],
   "credits": "Borderless Window by the og authors.",
-  "logoFile": "",
+  "logoFile": "assets/legacyborderless/borderless-icon.png",
   "screenshots": [],
   "dependencies": []
 }
